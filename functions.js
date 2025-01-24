@@ -1,5 +1,6 @@
-//  ALAB 308.5.1: Creating Reusable Functions
+// =============== ALAB 308.5.1: Creating Reusable Functions =========================
 
+// This is the one I like to work with
 // function reverseStr(str) {
 //     let revStr = "";
 //     for(i = str.length-1; i >= 0; i--){
@@ -94,7 +95,7 @@ printUntilln(-9);
 
 // ========================= Part 2: Thinking Methodically ===============================
 
-//* Sort the array by age.
+//* 1) Sort the array by age.
 const cvsArray = [{ id: "42", name: "Bruce", occupation: "Knight", age: "41" },
     { id: "48", name: "Barry", occupation: "Runner", age: "25" },
     { id: "57", name: "Bob", occupation: "Fry Cook", age: "19" },
@@ -105,29 +106,29 @@ const cvsArray = [{ id: "42", name: "Bruce", occupation: "Knight", age: "41" },
     console.log("This array is Sort the array by age: ", cvsArray);
     
     
-    //* Filter the array to remove entries with an age greater than 50.
-    const ageLessThan50 = cvsArray.filter(person => Number(person.age) <= 50);
-    console.log("This array contain people with an age of 50 y.o or yonger: ", ageLessThan50);
+//* 2) Filter the array to remove entries with an age greater than 50.
+const ageLessThan50 = cvsArray.filter(person => Number(person.age) <= 50);
+console.log("This array contain people with an age of 50 y.o or yonger: ", ageLessThan50);
     
     
     
-    //* Map the array to change the “occupation” key to “job” and increment every age by 1.
-    const changeOccupKey = cvsArray.map(change => ({
+//* 3) Map the array to change the “occupation” key to “job” and increment every age by 1.
+const changeOccupKey = cvsArray.map(change => ({
         ...cvsArray,
         job: change.occupation,
         age: Number(change.age) + 1
-    }));
-    console.log(changeOccupKey);
+}));
+console.log(changeOccupKey);
     
     
-    //* Use the reduce method to calculate the sum of the ages.
-    //* Then use the result to calculate the average age.
+//* 4) Use the reduce method to calculate the sum of the ages.
+//* 5} Then use the result to calculate the average age.
     
-    const sumAges = cvsArray.reduce((acc, num) => acc + Number(num.age), 0);
-    let avrAges = sumAges / (cvsArray.length)
+const sumAges = cvsArray.reduce((acc, num) => acc + Number(num.age), 0);
+let avrAges = sumAges / (cvsArray.length)
     
-    console.log("This is the Total Age:", sumAges);
-    console.log("This is the Average Ages: ", avrAges);
+console.log("This is the Total Age:", sumAges);
+console.log("This is the Average Ages: ", avrAges);
     
     
 
@@ -143,8 +144,10 @@ function incrementAge(persAge){
             person.age = 0;  // Initialize age if it doesn't exist
         } else {
         person.age = String(Number(person.age) + 1); // Convert age to a number, increment it, then convert it back to string and update the object
-        person.updated_at = new Date();} // Add or update the updated_at property
+        } 
+        person.updated_at = new Date(); // Add or update the updated_at property
     });
+    return persAge
 
 // this is another way to do it but just over a specific object inside the array.
     // if (!(persAge[0].age)) {
@@ -160,17 +163,18 @@ console.log(cvsArray);
 
 
 //* Take an object, make a copy, and increment the age field of the copy. Return the copy.
-function incrementAgeCopy(newCVSArray) {
-    newCVSArray.forEach(cvsArrayCopy => {
-        const cvsArrayCopy = [...newCVSArray];
-        if (!cvsArrayCopy.age) {
-            cvsArrayCopy.age = 0; // Initialize age if it doesn't exist
-        } else {
-            cvsArrayCopy = String(Number(cvsArrayCopy.age) + 1);
-            cvsArrayCopy.updated_at = new Date();
-        }
+function incrementAgeCopy(originalCVSArray) {
+    const cvsArrayCopy = [...originalCVSArray];
 
+    cvsArrayCopy.forEach(personCopy => {
+        if (!personCopy.age) {
+            personCopy.age = 0; // Initialize age if it doesn't exist
+        } else {
+            personCopy = String(Number(personCopy.age) + 1);
+        }
+        personCopy.updated_at = new Date(); // Add or update the updated_at property
     }) 
+    return cvsArrayCopy;
 }
 incrementAgeCopy(cvsArray);
 console.log(cvsArray);
